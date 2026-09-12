@@ -21,6 +21,7 @@
     "files": [
       "src/**/*",
       "!src/renderer/components/**/*.jsx",
+      "sql/**/*",
       "package.json"
     ],
     "asarUnpack": [

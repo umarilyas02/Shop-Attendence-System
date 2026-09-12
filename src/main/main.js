@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 
 const { initDatabase } = require('./database');
@@ -28,14 +28,31 @@ function createWindow() {
   mainWindow.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'));
 }
 
+// Startup failures (e.g. a missing/corrupt schema file, a native module
+// mismatch) must never fail silently - without this the process would sit
+// in Task Manager with no window and no visible error.
+function fatalStartupError(error) {
+  console.error('Fatal startup error:', error);
+  dialog.showErrorBox(
+    'Shop Attendance failed to start',
+    `The application could not start:\n\n${error.message}`
+  );
+  app.exit(1);
+}
+
 app.whenReady().then(() => {
-  initDatabase();
-  createWindow();
+  try {
+    initDatabase();
+    createWindow();
+  } catch (error) {
+    fatalStartupError(error);
+    return;
+  }
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-});
+}).catch(fatalStartupError);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
