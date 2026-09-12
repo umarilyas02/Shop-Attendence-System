@@ -13,10 +13,34 @@ src/renderer/bundle.js.LICENSE.txt
 
 # Logs
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 *.log
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Caches
+.npm/
+.eslintcache
+.cache/
+
+# Coverage / test output
+coverage/
+*.lcov
+
+# Temp files
+*.tmp
+*.bak
+*.swp
 
 # OS / editor
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 .vscode/
 .idea/
+*.sublime-workspace
