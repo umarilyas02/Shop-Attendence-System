@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+release/
+src/renderer/bundle.js
+src/renderer/bundle.js.LICENSE.txt
+
+# Runtime data
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+npm-debug.log*
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
